@@ -1,20 +1,15 @@
+from collections import defaultdict
 from typing import List
 
 
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-        anagrams = {}
+        anagrams = defaultdict(list)
 
         for s in strs:
             chars = sorted(s)
             sorted_s = "".join(chars)
-
-            if sorted_s not in anagrams:
-                anagrams[sorted_s] = [s]
-            else:
-                group = anagrams[sorted_s]
-                group.append(s)
-                anagrams[sorted_s] = group
+            anagrams[sorted_s].append(s)
 
         return list(anagrams.values())
 
