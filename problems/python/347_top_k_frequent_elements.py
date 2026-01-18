@@ -20,16 +20,20 @@ class Solution:
         Input: nums = [1,2,1,2,1,2,3,1,3,2], k = 2
         Output: [1,2]
         """
-        counts = defaultdict(int)
+        counts = {}
+        bucket = [[] for _ in range(len(nums) + 1)]
+        results = []
 
-        for num in nums:
-            counts[num] += 1
+        for n in nums:
+            counts[n] = counts.get(n, 0) + 1
 
-        sorted_counts = dict(
-            sorted(counts.items(), key=lambda item: item[1], reverse=True)
-        )
+        for n, c in counts.items():
+            bucket[c].append(n)
 
-        return list(sorted_counts.keys())[:k]
+        for i in range(len(bucket) - 1, 0, -1):
+            results.extend(bucket[i])
+
+        return results[:k]
 
 
 if __name__ == "__main__":
